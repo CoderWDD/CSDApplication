@@ -12,7 +12,6 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,13 +30,14 @@ android {
     }
 }
 
-dependencies {
+def appDependence = rootProject.ext.app
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.2'
+dependencies {
+    implementation appDependence.coreKtx
+    implementation appDependence.appCompat
+    implementation appDependence.material
+    implementation appDependence.constraintlayout
+    testImplementation appDependence.junit
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
