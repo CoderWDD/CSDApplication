@@ -17,8 +17,9 @@ ext{
     junitVersion = "4.13.2"
     apolloKotlinVersion = "3.5.0"
     okHttpVersion = "4.10.0"
+    retrofitVersion = "2.9.0"
 
-    app= [
+    app = [
             kapt: "androidx.room:room-compiler:$rommVersion",
             coreKtx : "androidx.core:core-ktx:$coreKtxVersion",
             appCompat : "androidx.appcompat:appcompat:$appCompatVersion",
@@ -35,5 +36,8 @@ ext{
             junit : "junit:junit:$junitVersion",
             apolloKotlin : "com.apollographql.apollo3:apollo-runtime:$apolloKotlinVersion",
             okHttp : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+            // retrofit
+            retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     ]
 }

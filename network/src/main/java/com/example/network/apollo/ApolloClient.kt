@@ -1,4 +1,4 @@
-package com.example.network
+package com.example.network.apollo
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
@@ -6,7 +6,7 @@ import com.example.constants.BuildConfig
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
-object Apollo {
+object ApolloClient {
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(ApolloAuthorizationInterceptor())
@@ -19,7 +19,7 @@ object Apollo {
     val apollo : ApolloClient by lazy {
         ApolloClient.Builder()
             .okHttpClient(okHttpClient = okHttpClient)
-            .serverUrl(BuildConfig.BASE_URL)
+            .serverUrl(BuildConfig.WIKI_BASE_URL)
             .build()
     }
 }
