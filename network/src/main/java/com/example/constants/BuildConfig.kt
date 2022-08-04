@@ -1,0 +1,7 @@
+package com.example.constants
+
+object BuildConfig {
+    const val API_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOjIsImdycCI6MSwiaWF0IjoxNjU5NTkwNzk3LCJleHAiOjE3NTQyNjM1OTcsImF1ZCI6InVybjp3aWtpLmpzIiwiaXNzIjoidXJuOndpa2kuanMifQ.nTTg5bZLhe67cYJh8SvjWDE152MgOmvf25cxDFeyUOUx3WkPpElK8QRqWIhMenemBWOVtp3sMZkRyNDywpYNZcV5XNTnXzeypL7DQhcEWCd7lDJoIt8Oq5jyJP3v9_GYKr9qKGKU9LTg9Uo8Ek9fqrroU39w-z_fwCxJ0YClFWeC7Xpo2QgcLgYVDKE_qUruYUDb7xiUhWIFKeWi59pLSXux8PYOUGRIJJCkypalLnnbKaV-MIE9a4oUXYWACX-hXh8p0pclDa-DWoQSRFRS_CmYzqLrHzodsXeqsrRCwHO2g8_HtKC40YsyN93FnB430y7wamCaWu8yjQE47rCYDA"
+
+    const val BASE_URL = "https://wiki.csd.moe/graphql"
+}
