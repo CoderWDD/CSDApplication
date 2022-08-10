@@ -2,13 +2,18 @@ package com.example.csdapplication
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
+import android.graphics.drawable.Icon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.marginBottom
+
+import com.example.article.ArticleFragment
 import com.example.common.utils.hideSystemStatusBar
 import com.example.csdapplication.databinding.ActivityMainBinding
 import com.example.csdapplication.ui.TabLayoutAdapter
@@ -17,8 +22,20 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private val tabList = listOf("资料","部门","消息","更多")
+    private val iconActiveList = listOf(
+        R.drawable.article_active,
+        R.drawable.department_active,
+        R.drawable.message_active,
+        R.drawable.more_active
+    )
+    private val iconInactiveList = listOf(
+        R.drawable.article_inactive,
+        R.drawable.department_inactive,
+        R.drawable.message_inactive,
+        R.drawable.more_inactive
+    )
     private val fragmentList = listOf(
-        BlankFragment(),
+        ArticleFragment(),
         BlankFragment(),
         BlankFragment(),
         BlankFragment()
@@ -37,10 +54,14 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun bottomNavigationInit(){
+        viewBinding.viewPager.isUserInputEnabled = false
         viewBinding.viewPager.adapter = TabLayoutAdapter(fragmentList,supportFragmentManager,lifecycle)
         TabLayoutMediator(viewBinding.tabLayout,viewBinding.viewPager){tab, position ->
             tab.text = tabList[position]
+            tab.icon = AppCompatResources.getDrawable(this,iconInactiveList[position])
         }.attach()
+        viewBinding.tabLayout.getTabAt(0)!!.icon = AppCompatResources.getDrawable(this,iconActiveList[0])
+        changeIconImgBottomMargin(viewBinding.tabLayout,0)
 
         viewBinding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -51,16 +72,34 @@ class MainActivity : AppCompatActivity() {
                     play(animator1).with(animator2)
                     start()
                 }
+                tab.icon = AppCompatResources.getDrawable(this@MainActivity,iconActiveList[tab.position])
+                changeIconImgBottomMargin(viewBinding.tabLayout,0)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                Log.d("MainActivity","onTabUnselected")
+                tab.icon = AppCompatResources.getDrawable(this@MainActivity,iconInactiveList[tab.position])
+                changeIconImgBottomMargin(viewBinding.tabLayout,0)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
                 Log.d("MainActivity","onTabReselected")
             }
         })
+    }
+
+    private fun changeIconImgBottomMargin(parent: ViewGroup,px: Int){
+        for (i in 0 until parent.childCount){
+            val view = parent.getChildAt(i)
+            if (view is ImageView){
+                view.layoutParams.apply {
+                    this as ViewGroup.MarginLayoutParams
+                    this.bottomMargin = 0
+                    this.topMargin = 0
+                }
+            }else if (view is ViewGroup){
+                changeIconImgBottomMargin(view,px)
+            }
+        }
     }
 
 }

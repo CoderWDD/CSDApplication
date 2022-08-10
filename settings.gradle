@@ -16,3 +16,4 @@ rootProject.name = "CSDApplication"
 include ':app'
 include ':network'
 include ':common'
+include ':article'

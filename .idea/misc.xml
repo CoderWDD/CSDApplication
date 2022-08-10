@@ -3,8 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/article.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/article_active.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/article_inactive.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/department_active.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/ic_article.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/message_inactive.xml" value="0.147" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/drawable/more_active.xml" value="0.147" />
         <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Projects/AndroidProjects/CSDApplication/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/article/src/main/res/layout/activity_article.xml" value="0.5739583333333333" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/article/src/main/res/layout/fragment_android.xml" value="0.19199594731509625" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/article/src/main/res/layout/fragment_article.xml" value="0.5739583333333333" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/article/src/main/res/layout/fragment_recommend.xml" value="0.1" />
+        <entry key="..\:/Projects/AndroidProjects/CSDApplication/article/src/main/res/layout/fragment_web.xml" value="0.396286231884058" />
       </map>
     </option>
   </component>

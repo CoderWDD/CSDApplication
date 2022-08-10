@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def appDependence = rootProject.ext.app
+
 android {
     compileSdk 32
 
@@ -34,10 +36,9 @@ android {
     }
 }
 
-def appDependence = rootProject.ext.app
-
 dependencies {
     implementation project(':common')
+    implementation project(':article')
     implementation appDependence.coreKtx
     implementation appDependence.appCompat
     implementation appDependence.material

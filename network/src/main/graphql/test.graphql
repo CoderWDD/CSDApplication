@@ -1,0 +1,9 @@
+query test{
+    pages {
+        list(orderBy: TITLE) {
+            id
+            path
+            title
+        }
+    }
+}
