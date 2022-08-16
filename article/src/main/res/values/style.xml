@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <!--AppToolBar-->
+    <style name="OverflowMenuStyle"  parent="@style/ThemeOverlay.AppCompat.Light">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">10dp</item>
+        <item name="android:paddingRight">0dp</item>
+
+        <item name="android:textColor">#000000</item>
+    </style>
+
+
+
+    <!--BottomSheet-->
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <!--是否有边框-->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--底部弹出条的样式（相当于背景）-->
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <!--状态栏颜色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--导航条颜色-->
+        <item name="android:navigationBarColor">@color/white</item>
+        <!--是否充许对话框的背景变暗。为true则充许变暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <!--背景，顶部两个圆角-->
+        <item name="android:background">@drawable/shape_comment_fragment</item>
+    </style>
+
+
+</resources>

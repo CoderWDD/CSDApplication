@@ -2,21 +2,17 @@ package com.example.csdapplication
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.graphics.drawable.Icon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.marginBottom
 
-import com.example.article.ArticleFragment
-import com.example.common.utils.hideSystemStatusBar
+import com.example.common.utils.immersionStatusBar
 import com.example.csdapplication.databinding.ActivityMainBinding
 import com.example.csdapplication.ui.TabLayoutAdapter
+import com.example.article.fragment.ArticleFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -45,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        this.hideSystemStatusBar()
+        this.immersionStatusBar()
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
 
