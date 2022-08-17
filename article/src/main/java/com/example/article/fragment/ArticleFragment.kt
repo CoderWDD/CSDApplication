@@ -3,6 +3,7 @@ package com.example.article.fragment
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,12 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.article.R
-import com.example.article.databinding.FragmentInformationBinding
+import com.example.article.databinding.FragmentArticleBinding
 import com.example.article.adapter.ViewPagerAdapter
 import com.example.article.viewModel.ArticleViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.math.log
 
 /**
  *     author : swk
@@ -25,8 +29,6 @@ import com.google.android.material.tabs.TabLayoutMediator
  *     version: 1.0
  */
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -35,23 +37,22 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ArticleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ArticleFragment : Fragment() {
+class ArticleFragment : BaseFragment() {
 
     private var param1: String? = null
     private var param2: String? = null
 
-//    private val viewModel by  activityViewModels<ArticleViewModel>()
+    private val viewModel by lazy { ViewModelProvider(this)[ArticleViewModel::class.java] }
 
-    private lateinit var binding: FragmentInformationBinding
+    private lateinit var binding: FragmentArticleBinding
 
     private lateinit var searchView: SearchView
 
-    private var commentFragment: CommentFragment? = null
 
-    private val tabList = listOf("主页", "移动开发", "WEB开发", "游戏开发", "人工智能")
+    private val tabList = listOf("推荐", "移动开发", "WEB开发", "游戏开发", "人工智能")
 
     private val fragmentList = listOf(
-        PathFragment.newInstance("home"),
+        RecommendFragment(),
         PathFragment.newInstance("移动开发"),
         PathFragment.newInstance("WEB开发"),
         PathFragment.newInstance("游戏开发"),
@@ -71,25 +72,18 @@ class ArticleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        Thread.sleep(1000)
         //viewBinding
-        binding = FragmentInformationBinding.inflate(inflater)
+        binding = FragmentArticleBinding.inflate(inflater, container, false)
+        initViewPager()
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViewPager()
-//        initBottomSheet()
-//        initFabBack()
-        initFabComment()
-
-    }
 
     /** 对toolbar的searchView进行设置 */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_toolbar, menu)
+        inflater.inflate(R.menu.menu_article_toolbar, menu)
         val searchItem = menu.getItem(R.id.search)
         searchView = searchItem.actionView as SearchView
         searchView.isSubmitButtonEnabled = true
@@ -150,41 +144,6 @@ class ArticleFragment : Fragment() {
 
 
 
-    }
-
-
-    /** 上划按钮点击时整体回到最顶部  */
-//    private fun initFabBack() {
-//        binding.FABBackToTop.visibility = View.GONE
-//        binding.FABBackToTop.setOnClickListener {
-//            if(binding.FABBackToTop.visibility == View.VISIBLE){
-//                //获得当前viewpager页面
-//                val position = binding.viewPager.currentItem
-//                fragmentList[position].setNestedScrollViewTop()
-//                binding.layoutAppBar.setExpanded(true)
-//            }
-//        }
-//    }
-
-
-
-
-
-    /** 弹出CommentFragment */
-    private fun initFabComment() {
-        binding.FABComment.setOnClickListener {
-            if(commentFragment != null){
-                commentFragment?.show(childFragmentManager.beginTransaction(), commentFragment?.javaClass?.name)
-            } else {
-                commentFragment = CommentFragment()
-                commentFragment?.show(childFragmentManager.beginTransaction(), commentFragment?.javaClass?.name)
-            }
-        }
-    }
-
-    /** 设置FAB_BackToTop 的可见度（pathFragment 使用） */
-    fun setFABVisibility(visibility: Int){
-        binding.FABBackToTop.visibility = visibility
     }
 
 

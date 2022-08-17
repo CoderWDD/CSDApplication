@@ -19,8 +19,6 @@
     <string name="back_to_the_top">Back to the top</string>
 
 
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
     <string name="search">搜索</string>
     <string name="modify">修改</string>
     <string name="path">路径</string>

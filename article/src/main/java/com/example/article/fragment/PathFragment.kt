@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.article.adapter.PathAdapter
 import com.example.article.databinding.FragmentPathBinding
@@ -21,18 +23,19 @@ import com.example.article.viewModel.ArticleViewModel
 
 private const val ARG_TAG = "tag"
 
-class PathFragment : Fragment() {
+class PathFragment : BaseFragment() {
     //fragment内容标志
     private var contentTag: String? = null
 
-//    private val viewModel by activityViewModels<ArticleViewModel>()
+    private val viewModel by lazy { ViewModelProvider(this)[ArticleViewModel::class.java] }
 
     private lateinit var binding: FragmentPathBinding
 
     private lateinit var parent: ArticleFragment
 
-    //是否打开一个contentFragment
-    private var isOpen = false
+    private lateinit var mOnBackPressedCallback: OnBackPressedCallback
+
+    private lateinit var pathAdapter: PathAdapter
 
     //文件绝对路径
     private val absolutePath = ArrayList<String>()
@@ -47,7 +50,6 @@ class PathFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +58,7 @@ class PathFragment : Fragment() {
         //父级fragment
         parent = parentFragment as ArticleFragment
 
+
         //init
         initPathDisplay()
         initPathRecyclerView()
@@ -63,16 +66,25 @@ class PathFragment : Fragment() {
         return binding.root
     }
 
+    override fun onBackPressed(): Boolean {
+        return if (absolutePath.size > 1){
+            absolutePath.removeAt(absolutePath.size - 1)
+            pathAdapter.preChange()
+            binding.tvPath.text = path()
+            true
+        }else super.onBackPressed()
+    }
+
+
     private fun initPathDisplay() {
         binding.tvPath.text = path()
     }
 
     private fun initPathRecyclerView() {
-        val pathAdapter = PathAdapter(binding.recyclerViewPath).apply {
+        pathAdapter = PathAdapter(binding.recyclerViewPath).apply {
             setOnItemClickListener(object : PathAdapter.OnItemClickListener {
                 override fun onItemClick(holder: PathAdapter.PathViewHolder, position: Int) {
-                    //TODO: 更新文件路径
-                    Log.d(contentTag, "onItemClick: xxx")
+                    //TODO: 更新文件路
 
                     absolutePath.add(holder.tv_path.text.toString())
                     binding.tvPath.text = path()
@@ -89,22 +101,7 @@ class PathFragment : Fragment() {
             layoutManager = linearLayoutManager
         }
 
-        //处理返回事件
-        requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner,
-                object: OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        if(absolutePath.size == 1){
-
-                        }else {
-                            absolutePath.removeAt(absolutePath.size - 1)
-                            pathAdapter.preChange()
-                            binding.tvPath.text = path()
-                        }
-                    }
-                }
-            )
-    }
+}
 
     /** 当前路径的显示 */
     private fun path(): String{
@@ -132,13 +129,7 @@ class PathFragment : Fragment() {
             }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        parent.setFABVisibility(
-//            if(binding.nestedScrollView.scrollY != 0) View.VISIBLE
-//            else View.GONE
-//        )
-//    }
+
 
 
     /** 初始化滑动窗口 监听滑动事件 */

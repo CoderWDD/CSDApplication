@@ -26,26 +26,16 @@ class CommentAdapter(private val recyclerView: RecyclerView ): RecyclerView.Adap
     }
 
     /** 初始化数据  */
-    fun initData(new: ArrayList<String>): Boolean{
-        return if(data.isEmpty() && new.isNotEmpty()){
-            data.addAll(new)
-            notifyItemRangeRemoved(0, data.size)
-            true
-        } else {
-            false
-        }
+    fun initData(new: ArrayList<String>){
+        data.addAll(new)
+        notifyItemRangeRemoved(0, data.size)
     }
 
     /** 重新设置数据 */
-    fun setData(new: ArrayList<String>): Boolean{
-        return if(new.isNotEmpty()){
-            data.clear()
-            data.addAll(new)
-            notifyItemRangeRemoved(0, data.size)
-            true
-        } else {
-          false
-        }
+    fun updateData(new: ArrayList<String>){
+        data.clear()
+        data.addAll(new)
+        notifyItemRangeRemoved(0, data.size)
     }
 
 

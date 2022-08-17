@@ -18,6 +18,7 @@ ext{
     apolloKotlinVersion = "3.5.0"
     okHttpVersion = "4.10.0"
     retrofitVersion = "2.9.0"
+    navigationVersion = "2.4.1"
 
     app = [
             kapt: "androidx.room:room-compiler:$rommVersion",
@@ -38,6 +39,9 @@ ext{
             okHttp : "com.squareup.okhttp3:okhttp:$okHttpVersion",
             // retrofit
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+            gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+
+            navigation: "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            navigationUi:"androidx.navigation:navigation-ui-ktx:$navigationVersion"
     ]
 }

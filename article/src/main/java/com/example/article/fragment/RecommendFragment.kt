@@ -1,4 +1,4 @@
-package com.example.article.ui.recommend
+package com.example.article.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,28 +7,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager.TAG
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import com.example.article.R
 import com.example.article.databinding.FragmentRecommendBinding
+import com.example.article.viewModel.RecommendViewModel
 import com.example.model.TestQuery
 import com.example.network.apollo.ApolloClient
 import kotlinx.coroutines.launch
 
-class RecommendFragment : Fragment() {
-    private lateinit var viewBinding: FragmentRecommendBinding
+class RecommendFragment : BaseFragment() {
+    private lateinit var binding: FragmentRecommendBinding
     private lateinit var viewModel: RecommendViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = FragmentRecommendBinding.inflate(inflater, container, false)
-        viewBinding.buttonTest.setOnClickListener {
-            lifecycleScope.launch {
-                val response = ApolloClient.apollo.query(TestQuery()).execute()
-                Log.e("wgw", "onActivityCreated: ${response.data}", )
+        binding = FragmentRecommendBinding.inflate(inflater, container, false)
+
+        binding.buttonTest.setOnClickListener{
+
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                add(R.id.container, ContentFragment())
+                addToBackStack(null)
+                commit()
             }
         }
-        return viewBinding.root
+
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

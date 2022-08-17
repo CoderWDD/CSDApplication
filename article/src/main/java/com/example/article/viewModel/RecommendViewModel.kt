@@ -1,4 +1,4 @@
-package com.example.article.ui.recommend
+package com.example.article.viewModel
 
 import androidx.lifecycle.ViewModel
 
