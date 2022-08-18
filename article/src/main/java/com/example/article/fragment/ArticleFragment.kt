@@ -2,8 +2,11 @@ package com.example.article.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,12 +14,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.DialogCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.article.R
 import com.example.article.databinding.FragmentArticleBinding
 import com.example.article.adapter.ViewPagerAdapter
+import com.example.article.constants.Constants
 import com.example.article.viewModel.ArticleViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -46,17 +55,15 @@ class ArticleFragment : BaseFragment() {
 
     private lateinit var binding: FragmentArticleBinding
 
-    private lateinit var searchView: SearchView
-
 
     private val tabList = listOf("推荐", "移动开发", "WEB开发", "游戏开发", "人工智能")
 
     private val fragmentList = listOf(
         RecommendFragment(),
-        PathFragment.newInstance("移动开发"),
-        PathFragment.newInstance("WEB开发"),
-        PathFragment.newInstance("游戏开发"),
-        PathFragment.newInstance("人工智能"),
+        PathFragment.newInstance(Constants.Android),
+        PathFragment.newInstance(Constants.Web),
+        PathFragment.newInstance(Constants.Game),
+        PathFragment.newInstance(Constants.AI),
     )
 
 
@@ -66,6 +73,7 @@ class ArticleFragment : BaseFragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -74,26 +82,61 @@ class ArticleFragment : BaseFragment() {
     ): View {
         //viewBinding
         binding = FragmentArticleBinding.inflate(inflater, container, false)
-        initViewPager()
 
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setHasOptionsMenu(true)
+
+        initViewPager()
         return binding.root
     }
 
 
     /** 对toolbar的searchView进行设置 */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_article_toolbar, menu)
-        val searchItem = menu.getItem(R.id.search)
-        searchView = searchItem.actionView as SearchView
-        searchView.isSubmitButtonEnabled = true
+        super.onCreateOptionsMenu(menu, inflater)
     }
+
 
     /** 对menu的监听 */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-
-        return super.onOptionsItemSelected(item)
+        when(item.itemId){
+            R.id.search->{
+                //TODO:弹出一个dialog进行搜索操作
+                return true
+            }
+            R.id.refresh->{
+                //TODO:刷新操作
+                Toast.makeText(requireContext(), "刷新ing", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.display->{
+                //TODO:显示形式设置->弹出一个dialog
+                AlertDialog.Builder(requireContext()).apply{
+                    setTitle("显示形式")
+                    setCancelable(true)
+                    show()
+                }
+                return true
+            }
+            R.id.exit->{
+                //退出App
+                AlertDialog.Builder(requireContext()).apply{
+                    setTitle("请确定要退出?")
+                    setCancelable(true)
+                    setNegativeButton("取消") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    setPositiveButton("确定") { dialog, _ ->
+                        dialog.dismiss()
+                        requireActivity().finish()
+                    }
+                    show()
+                }
+                return true
+            }
+            else->return super.onOptionsItemSelected(item)
+        }
     }
 
 
@@ -141,9 +184,6 @@ class ArticleFragment : BaseFragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab?) { }
         })
-
-
-
     }
 
 

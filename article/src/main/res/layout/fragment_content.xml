@@ -52,7 +52,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/FAB_backToTop"
+        android:id="@+id/fab_backToTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
@@ -63,7 +63,7 @@
         android:layout_gravity="bottom|start" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/FAB_comment"
+        android:id="@+id/fab_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"

@@ -5,14 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.article.R
 import com.example.article.adapter.PathAdapter
+import com.example.article.constants.Constants
 import com.example.article.databinding.FragmentPathBinding
 import com.example.article.viewModel.ArticleViewModel
+import com.example.article.viewModel.PathViewModel
 
 /**
  *     author : swk
@@ -21,32 +26,24 @@ import com.example.article.viewModel.ArticleViewModel
  *     version: 1.0
  */
 
-private const val ARG_TAG = "tag"
+private const val ARG_TAG = "TAG"
+private const val ARG_SYMBOL = "SYMBOL"
 
 class PathFragment : BaseFragment() {
     //fragment内容标志
-    private var contentTag: String? = null
+    private var contentTag: Int? = null
 
-    private val viewModel by lazy { ViewModelProvider(this)[ArticleViewModel::class.java] }
+    private val viewModel by lazy { ViewModelProvider(this)[PathViewModel::class.java] }
 
     private lateinit var binding: FragmentPathBinding
 
-    private lateinit var parent: ArticleFragment
-
-    private lateinit var mOnBackPressedCallback: OnBackPressedCallback
-
     private lateinit var pathAdapter: PathAdapter
 
-    //文件绝对路径
-    private val absolutePath = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            contentTag = it.getString(ARG_TAG)
-            if(absolutePath.isEmpty()){
-                absolutePath.add(tag!!)
-            }
+            contentTag = it.getInt(ARG_TAG)
         }
     }
 
@@ -54,10 +51,7 @@ class PathFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPathBinding.inflate(inflater)
-        //父级fragment
-        parent = parentFragment as ArticleFragment
-
+        binding = FragmentPathBinding.inflate(inflater, container, false)
 
         //init
         initPathDisplay()
@@ -66,18 +60,23 @@ class PathFragment : BaseFragment() {
         return binding.root
     }
 
+
+
+
+    //返回事件：返回上一级目录
     override fun onBackPressed(): Boolean {
-        return if (absolutePath.size > 1){
-            absolutePath.removeAt(absolutePath.size - 1)
+        return if( viewModel.getPath(contentTag!!).size > 1){
+            viewModel.removePath(contentTag!!)
             pathAdapter.preChange()
-            binding.tvPath.text = path()
+            binding.tvPath.text = pathToString()
             true
         }else super.onBackPressed()
     }
 
 
+    /** 显示绝对路径 */
     private fun initPathDisplay() {
-        binding.tvPath.text = path()
+        binding.tvPath.text = pathToString()
     }
 
     private fun initPathRecyclerView() {
@@ -85,9 +84,8 @@ class PathFragment : BaseFragment() {
             setOnItemClickListener(object : PathAdapter.OnItemClickListener {
                 override fun onItemClick(holder: PathAdapter.PathViewHolder, position: Int) {
                     //TODO: 更新文件路
-
-                    absolutePath.add(holder.tv_path.text.toString())
-                    binding.tvPath.text = path()
+                    viewModel.addPath(contentTag!!, holder.tv_path.text.toString())
+                    binding.tvPath.text = pathToString()
                     change()
                 }
             })
@@ -104,9 +102,9 @@ class PathFragment : BaseFragment() {
 }
 
     /** 当前路径的显示 */
-    private fun path(): String{
+    private fun pathToString(): String{
         val stringBuilder = StringBuilder()
-        for (str in absolutePath){
+        for (str in viewModel.getPath(contentTag!!)){
             stringBuilder.append(str)
             stringBuilder.append(" / ")
         }
@@ -121,33 +119,11 @@ class PathFragment : BaseFragment() {
      */
     companion object {
         @JvmStatic
-        fun newInstance(TAG: String) =
+        fun newInstance(TAG: Int) =
             PathFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_TAG, TAG)
+                    putInt(ARG_TAG, TAG)
                 }
             }
     }
-
-
-
-
-    /** 初始化滑动窗口 监听滑动事件 */
-//    private fun initNestedScrollView() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            binding.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-//                when(scrollY){
-//                    0 -> parent.setFABVisibility(View.GONE)
-//                    else -> parent.setFABVisibility(View.VISIBLE)
-//                }
-//            }
-//        }
-//    }
-    /** 设置NestedScrollView上划到最顶端 */
-//    fun setNestedScrollViewTop(){
-//        if(binding.nestedScrollView.scrollY != 0){
-//            binding.nestedScrollView.fullScroll(ScrollView.FOCUS_UP)
-//        }
-//    }
-
 }

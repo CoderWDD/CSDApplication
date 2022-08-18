@@ -4,11 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.FragmentManager.TAG
+import com.example.article.R
 import com.example.article.databinding.FragmentContentBinding
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +43,7 @@ class ContentFragment : BaseFragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -42,34 +51,40 @@ class ContentFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentContentBinding.inflate(inflater, container, false)
+
         initFabComment()
         initFabBack()
+        initToolbar()
         initScrollView()
+
         return binding.root
     }
 
 
     override fun onResume() {
         super.onResume()
-        binding.FABBackToTop.visibility =
-            if(binding.nestedScrollView.scrollY != 0) View.VISIBLE
-            else View.GONE
+        binding.fabBackToTop.visibility =
+            if(binding.nestedScrollView.scrollY != 0) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
     }
 
     /**监听scrollView的滑动*/
     private fun initScrollView() {
         binding.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if(scrollY != 0){
-                binding.FABBackToTop.visibility = View.VISIBLE
+                binding.fabBackToTop.visibility = View.VISIBLE
             }else {
-                binding.FABBackToTop.visibility = View.GONE
+                binding.fabBackToTop.visibility = View.GONE
             }
         }
     }
 
     /** 弹出CommentFragment */
     private fun initFabComment() {
-        binding.FABComment.setOnClickListener {
+        binding.fabComment.setOnClickListener {
             if(commentFragment != null){
                 commentFragment?.show(childFragmentManager.beginTransaction(), commentFragment?.javaClass?.name)
             } else {
@@ -81,11 +96,36 @@ class ContentFragment : BaseFragment() {
 
     /** 上划按钮点击时整体回到最顶部  */
     private fun initFabBack() {
-        binding.FABBackToTop.visibility = View.GONE
-        binding.FABBackToTop.setOnClickListener {
-            if(binding.FABBackToTop.visibility == View.VISIBLE){
+        binding.fabBackToTop.visibility = View.GONE
+        binding.fabBackToTop.setOnClickListener {
+            if(binding.fabBackToTop.visibility == View.VISIBLE){
                 binding.nestedScrollView.fullScroll(View.FOCUS_UP)
                 binding.layoutAppBar.setExpanded(true)
+            }
+        }
+    }
+
+    /**菜单的监听*/
+    private fun initToolbar(){
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_item_edit -> {
+                    //TODO:编辑操作
+                    Snackbar.make(requireContext(), binding.root, "编辑", Snackbar.LENGTH_SHORT).show()
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.menu_item_copy -> {
+                    //TODO: 复制操作
+                    Snackbar.make(requireContext(), binding.root, "复制成功", Snackbar.LENGTH_SHORT).show()
+
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.menu_item_delete -> {
+                    //TODO: 删除文件操作
+                    Snackbar.make(requireContext(), binding.root, "删除", Snackbar.LENGTH_SHORT).show()
+                    return@setOnMenuItemClickListener true
+                }
+                else -> return@setOnMenuItemClickListener false
             }
         }
     }

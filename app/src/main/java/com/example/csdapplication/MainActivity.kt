@@ -5,10 +5,14 @@ import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.Toolbar
 
 import com.example.common.utils.immersionStatusBar
 import com.example.csdapplication.databinding.ActivityMainBinding
@@ -17,6 +21,7 @@ import com.example.article.fragment.ArticleFragment
 import com.example.article.utils.BackHandlerHelper
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     //记录最后一次按下返回键的时间
@@ -53,13 +58,15 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationInit()
     }
 
+
+    //点两次退出程序
     override fun onBackPressed() {
         if (!BackHandlerHelper.handleBackPress(this)){
             if (System.currentTimeMillis() - lastBackPress < 1000) {
-                super.onBackPressed();
+                super.onBackPressed()
             } else {
                 lastBackPress = System.currentTimeMillis()
-                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show()
             }
         }
     }
