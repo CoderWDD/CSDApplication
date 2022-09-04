@@ -1,0 +1,16 @@
+{
+  "name": "Untitled GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://wiki.whi.ink/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOjEsImdycCI6MSwiaWF0IjoxNjU5OTY0ODQzLCJleHAiOjE2OTE1MjI0NDMsImF1ZCI6InVybjp3aWtpLmpzIiwiaXNzIjoidXJuOndpa2kuanMifQ.LeB5Qq25_2LIKHgCMqQECh-5LXhuAa9P4REjtICbtoW2MaRWaGWdLASy5r8ibtKfouIdIb2O7z0pIZYp78HOZN3p1W5hzlghWogOulz-p4mVlpfXk00Rct-qYYyzoZIKGd2Hox7yX5NnEGlwWsi0L1N46uIxjFaIGyhMxYSOm9mX5y4yVjqVllmTwkLlszVbXhfNmFnx7d0Ti7DoUb-a6LcB7XDYqR1zh6cIIAkec3UZ4wQSn5Z7dtjdbDDost_lat4uUghAy9KXnGdYvnnuCIiZnhEtwIYrTj2rnmxoawnCL0PS5BZb-3tDldivyrCy7Dv1uIQ3LEoowDveteXRjA"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

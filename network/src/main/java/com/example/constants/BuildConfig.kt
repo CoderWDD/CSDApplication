@@ -6,4 +6,11 @@ object BuildConfig {
     const val WIKI_BASE_URL = "https://wiki.csd.moe/graphql"
 
     const val PIC_BED_BASE_URL = "https://picbed.net/"
+
+
+    const val IP_PARSE_URL = "https://ip.useragentinfo.com/json"
+
+    /**春哥*/
+    const val WIKI_URL = "https://wiki.whi.ink/graphql"
+    const val WIKI_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOjEsImdycCI6MSwiaWF0IjoxNjU5OTY0ODQzLCJleHAiOjE2OTE1MjI0NDMsImF1ZCI6InVybjp3aWtpLmpzIiwiaXNzIjoidXJuOndpa2kuanMifQ.LeB5Qq25_2LIKHgCMqQECh-5LXhuAa9P4REjtICbtoW2MaRWaGWdLASy5r8ibtKfouIdIb2O7z0pIZYp78HOZN3p1W5hzlghWogOulz-p4mVlpfXk00Rct-qYYyzoZIKGd2Hox7yX5NnEGlwWsi0L1N46uIxjFaIGyhMxYSOm9mX5y4yVjqVllmTwkLlszVbXhfNmFnx7d0Ti7DoUb-a6LcB7XDYqR1zh6cIIAkec3UZ4wQSn5Z7dtjdbDDost_lat4uUghAy9KXnGdYvnnuCIiZnhEtwIYrTj2rnmxoawnCL0PS5BZb-3tDldivyrCy7Dv1uIQ3LEoowDveteXRjA"
 }

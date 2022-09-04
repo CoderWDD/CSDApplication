@@ -33,23 +33,25 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabIndicatorColor="@color/blue_1"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/fragmentContainerView"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:navGraph="@navigation/nav_article" />-->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <FrameLayout
         android:id="@+id/container"

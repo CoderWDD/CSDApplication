@@ -49,8 +49,19 @@ dependencies {
     implementation appDependence.viewModed
     implementation appDependence.lifecycleProcess
 
+    implementation appDependence.gson
     implementation appDependence.apolloKotlin
 
+    implementation appDependence.hilt
+    implementation appDependence.room
+    implementation appDependence.room_ktx
+    implementation appDependence.room_paging
+    kapt appDependence.kapt
+
+    implementation appDependence.paging
+
+    implementation 'com.airbnb.android:lottie:5.2.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'

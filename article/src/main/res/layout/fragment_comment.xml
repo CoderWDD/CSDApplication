@@ -20,19 +20,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="60dp"/>
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_no_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="暂无评论~"
+            android:textSize="20sp"
+            android:gravity="center"/>
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/white">
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="@color/white">-->
 
-        <include
-            android:id="@+id/include_send_comment"
-            layout="@layout/include_send_comment"/>
+<!--        <include-->
+<!--            android:articleID="@+articleID/include_send_comment"-->
+<!--            layout="@layout/include_send_comment"/>-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

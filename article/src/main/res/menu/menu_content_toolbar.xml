@@ -2,15 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_item_edit"
-    android:title="@string/edit"
-    app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_item_more"
+        android:title="@string/more"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_more">
 
-    <item android:id="@+id/menu_item_copy"
-        android:title="@string/copy"
-        app:showAsAction="never"/>
+        <menu>
+            <item
+                android:id="@+id/menu_item_edit"
+                android:title="@string/edit"
+                android:icon="@drawable/ic_menu_edit"
+                app:showAsAction="never"/>
 
-    <item android:id="@+id/menu_item_delete"
-        android:title="@string/delete"
-        app:showAsAction="never"/>
+            <item
+                android:id="@+id/menu_item_copy"
+                android:title="@string/copy"
+                android:icon="@drawable/ic_menu_copy"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/menu_item_delete"
+                android:title="@string/delete"
+                android:icon="@drawable/ic_menu_delete"
+                app:showAsAction="never"/>
+        </menu>
+
+    </item>
+
 </menu>

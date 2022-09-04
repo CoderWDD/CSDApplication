@@ -4,34 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/searchView"
-        app:showAsAction="ifRoom"
-        android:visible="false"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
-
-    <item
         android:id="@+id/refresh"
+        android:icon="@drawable/ic_menu_refresh"
         app:showAsAction="never"
-        android:icon="@mipmap/ic_launcher"
         android:title="@string/refresh"/>
-
 
     <item
         android:id="@+id/search"
         app:showAsAction="never"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_search"
         android:title="@string/search" />
-
-    <item
-        android:id="@+id/display"
-        app:showAsAction="never"
-        android:icon="@mipmap/ic_launcher"
-        android:title="@string/display"/>
 
     <item
         android:id="@+id/exit"
         app:showAsAction="never"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_exit_circle"
         android:title="@string/exit"/>
 
 

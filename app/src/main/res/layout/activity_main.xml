@@ -17,7 +17,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="#838383"
-        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@id/tabLayout"/>
 
     <com.google.android.material.tabs.TabLayout

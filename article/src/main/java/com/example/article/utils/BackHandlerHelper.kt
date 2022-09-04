@@ -3,18 +3,16 @@ package com.example.article.utils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.example.article.ui.inter.FragmentBackHandler
 
 /**
  * <pre>
- *     author : swk
+ *     author : 叶梦璃愁
  *     time   : 2022/08/18
  *     desc   : 分发fragment的back事件
  *     version: 1.0
  * </pre>
  */
-interface FragmentBackHandler {
-    fun onBackPressed(): Boolean
-}
 class BackHandlerHelper {
 
     companion object {
@@ -22,9 +20,7 @@ class BackHandlerHelper {
          * 将back事件分发给 FragmentManager 中管理的子Fragment，如果该 FragmentManager 中的所有Fragment都
          * 没有处理back事件，则尝试 FragmentManager.popBackStack()
          *
-         * @return 如果处理了back键则返回 <b>true</b>
-         * @see #handleBackPress(Fragment)
-         * @see #handleBackPress(FragmentActivity)
+         * @return 如果处理了back键则返回 true
          */
         fun handleBackPress(fragmentManager: FragmentManager):Boolean{
             val fragments = fragmentManager.fragments
@@ -48,7 +44,7 @@ class BackHandlerHelper {
         /**
          * 将back事件分发给Fragment中的子Fragment,
          * 该方法调用了 {@link #handleBackPress(FragmentManager)}
-         * @return 如果处理了back键则返回 <b>true</b>
+         * @return 如果处理了back键则返回 true
          */
         fun handleBackPress(fragment: Fragment): Boolean{
             return handleBackPress(fragment.childFragmentManager)
@@ -57,7 +53,7 @@ class BackHandlerHelper {
         /**
          * 将back事件分发给Activity中的子Fragment,
          * 该方法调用了 {@link #handleBackPress(FragmentManager)}
-         * @return 如果处理了back键则返回 <b>true</b>
+         * @return 如果处理了back键则返回 true
          */
         fun handleBackPress(fragmentActivity: FragmentActivity): Boolean {
             return handleBackPress(fragmentActivity.supportFragmentManager)
@@ -66,16 +62,13 @@ class BackHandlerHelper {
 
         /**
          * 判断Fragment是否处理了Back键
-         * @return 如果处理了back键则返回 <b>true</b>
+         * @return 如果处理了back键则返回 true
          */
-        @Suppress("DEPRECATION")
         private fun isFragmentBackHandled(fragment: Fragment?): Boolean{
             return  fragment != null
                     && fragment.isVisible
-                    && fragment.userVisibleHint
                     && fragment is FragmentBackHandler
                     && (fragment as FragmentBackHandler).onBackPressed()
-
         }
     }
 }

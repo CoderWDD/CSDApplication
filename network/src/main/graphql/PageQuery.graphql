@@ -1,0 +1,115 @@
+# 单个文章的基本信息
+query BaseArticle($articleId: Int!){
+    pages {
+        single(id: $articleId){
+            id
+            updatedAt
+            path
+            title
+            tags {
+                id
+                tag
+            }
+        }
+    }
+}
+
+
+# 单个文章请求
+query Article($articleID: Int!, $articlePath: String!){
+    pages {
+        single(id: $articleID){
+            id
+            path
+            title
+            description
+            content
+            render
+            createdAt
+            updatedAt
+            authorId
+            authorName
+            authorEmail
+            creatorName
+            editor
+            contentType
+            tags {
+                id
+                tag
+            }
+        }
+    }
+    comments {
+        list(locale: "zh", path: $articlePath){
+            id
+            authorName
+            createdAt
+            updatedAt
+            content
+        }
+    }
+}
+
+# 搜索文章的请求
+query searchArticle($query: String!){
+    pages {
+        search(query: $query, locale: "zh"){
+            results {
+                id
+            }
+        }
+    }
+}
+
+# 构造树
+query folderTree($parentId: Int!){
+    pages {
+        tree(parent: $parentId locale: "zh" mode: ALL){
+            id
+            title
+            isFolder
+            path
+            pageId
+        }
+    }
+}
+
+query tags{
+    pages {
+        tags {
+            id
+            tag
+        }
+    }
+}
+
+# 评论的请求
+query comment($path: String!){
+    comments {
+        list(locale: "zh", path: $path){
+            id
+            content
+            render
+            authorId
+            authorName
+            authorEmail
+            authorIP
+            createdAt
+            updatedAt
+        }
+    }
+}
+
+mutation sendComment{
+    comments {
+        create(pageId: 23 content: "测试回复评论2" replyTo: 5 guestEmail: "swk2460050897@outlook.com", guestName: "叶梦璃愁"){
+            id
+            responseResult {
+               succeeded
+                slug
+                errorCode
+                message
+            }
+        }
+    }
+}

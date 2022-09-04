@@ -2,28 +2,29 @@ package com.example.csdapplication
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.Toolbar
-
+import androidx.lifecycle.lifecycleScope
+import com.example.article.ui.base.BaseActivity
+import com.example.article.ui.fragment.ArticleFragment
+import com.example.article.ui.fragment.StartFragment
+import com.example.article.utils.BackHandlerHelper
+import com.example.article.utils.ToastUtil
 import com.example.common.utils.immersionStatusBar
 import com.example.csdapplication.databinding.ActivityMainBinding
 import com.example.csdapplication.ui.TabLayoutAdapter
-import com.example.article.fragment.ArticleFragment
-import com.example.article.utils.BackHandlerHelper
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.math.log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : BaseActivity() {
     //记录最后一次按下返回键的时间
     private var lastBackPress = 0L
 
@@ -50,13 +51,24 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         this.immersionStatusBar()
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
 
+        lifecycleScope.launch(Dispatchers.IO){
+            supportFragmentManager.beginTransaction().apply {
+                add(R.id.container, StartFragment())
+                addToBackStack("start")
+                commit()
+            }
+        }
+
+
         bottomNavigationInit()
     }
+
 
 
     //点两次退出程序
@@ -66,13 +78,14 @@ class MainActivity : AppCompatActivity() {
                 super.onBackPressed()
             } else {
                 lastBackPress = System.currentTimeMillis()
-                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show()
+                ToastUtil.makeText(this, "再按一次退出")
             }
         }
     }
 
     private fun bottomNavigationInit(){
         viewBinding.viewPager.isUserInputEnabled = false
+        viewBinding.viewPager.offscreenPageLimit = fragmentList.size
         viewBinding.viewPager.adapter = TabLayoutAdapter(fragmentList,supportFragmentManager,lifecycle)
         TabLayoutMediator(viewBinding.tabLayout,viewBinding.viewPager){tab, position ->
             tab.text = tabList[position]
